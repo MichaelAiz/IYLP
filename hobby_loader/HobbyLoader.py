@@ -28,7 +28,10 @@ if __name__ == "__main__":
         for hobby in hobbies:
             hobby_id = uuid4()
             print("adding " + hobby.getText())
-            conn.add_hobby(hobby.getText(), hobby_id)
+            try:
+                conn.add_hobby(hobby.getText(), str(hobby_id))
+            except:
+                continue
 
     conn.close()
 

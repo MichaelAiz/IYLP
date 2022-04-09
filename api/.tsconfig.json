@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "esnext",
+      "lib": ["esnext"],
+      "jsx": "preserve",
+      "strictFunctionTypes": true,
+      "sourceMap": true,
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noImplicitAny": true,
+      "typeRoots": [
+        "./typings",
+        "./node_modules/@types"
+      ],
+      "incremental": true
+    },
+    "include": [
+      "next-env.d.ts",
+      "global.d.ts",
+      "config.ts",
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "exclude": [
+      "node_modules",
+      "**/node_modules/*"
+    ]
+  }

@@ -2,12 +2,12 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && swc src -d dist",
-    "dev": "nodemon --inspect --watch src --exec 'npm run build && node -r dist/index.js'"
+    "dev": "nodemon --inspect --watch src --exec 'npm run build && node dist/index.js'"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,5 +23,31 @@
   },
   "dependencies": {
     "fastify": "^3.28.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": [
+        "./tsconfig.json"
+      ]
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/ban-ts-comment": "warn",
+      "no-trailing-spaces": "error",
+      "eol-last": "error",
+      "prefer-const": "warn",
+      "keyword-spacing": "error"
+    }
   }
 }
+

@@ -5,10 +5,9 @@ import {
 } from 'fastify';
 
 
-function handler(arg: string) {
+function handler(req: FastifyRequest, reply: FastifyReply) {
     const message = "yep you can login"
-    if (!typeof(message) )
-    return message
+    return reply.send(message)
 }
 
 

@@ -22,7 +22,8 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "fastify": "^3.28.0"
+    "fastify": "^3.28.0",
+    "fastify-plugin": "^3.0.1"
   },
   "eslintConfig": {
     "root": true,
@@ -50,4 +51,3 @@
     }
   }
 }
-

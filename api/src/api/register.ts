@@ -45,18 +45,19 @@ function handler(driver: Driver) {
             const result = await session.writeTransaction( tx => {
                 console.log("creating")
                 return tx.run(
-                    "CREATE (n:testing) RETURN n",
+                    "CREATE (n:User) SET n.username = $username SET n.password = $hashedPassword SET n.email = $email RETURN n",
+                    {username, hashedPassword, email}
                 )
             })
-            console.log(result.records[0].get(0))
         } catch(e) {
             console.log(e)
         } finally {
             session.close()
         }
         console.log("created")
-        const jwt = sign(id)
-        reply.send(jwt)
+        const jwt = await sign(id)
+        console.log(jwt)
+        return reply.send(jwt)
     }
 }
 

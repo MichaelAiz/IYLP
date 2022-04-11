@@ -1,14 +1,15 @@
 import Fastify from 'fastify';
-import login from './api/auth/login.js'
+import { Neo4jError } from 'neo4j-driver-core';
+import neo4j from 'neo4j-driver'
+import login from './api/login.js'
+import register from './api/register.js';
 
 const fastify = Fastify();
 
-fastify.route(login)
+const driver = neo4j.driver('neo4j+s://61728d72.databases.neo4j.io', neo4j.auth.basic('neo4j', 'u-KggzQCAN1s2BqjL1n8XkbcsJfCA5CJc9iHaIvJoyQ'))
 
-// Declare a route
-// fastify.get('/', function (request, reply) {
-//     reply.send({ hello: 'world' })
-//   })
+fastify.route(login)
+fastify.route(register(driver))
 
 const start = async () => {
     try {

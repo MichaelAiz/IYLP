@@ -8,7 +8,7 @@ const fastify = Fastify();
 
 const driver = neo4j.driver('neo4j+s://61728d72.databases.neo4j.io', neo4j.auth.basic('neo4j', 'u-KggzQCAN1s2BqjL1n8XkbcsJfCA5CJc9iHaIvJoyQ'))
 
-fastify.route(login)
+fastify.route(login(driver))
 fastify.route(register(driver))
 
 const start = async () => {

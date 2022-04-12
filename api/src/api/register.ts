@@ -10,7 +10,7 @@ import sign from '../lib/jwt.js'
 import { Driver } from 'neo4j-driver'
 import { randomUUID } from 'crypto'
 
-export type newUser = {
+export interface newUser {
     username: string,
     password: string,
     email: string
@@ -45,12 +45,12 @@ function handler(driver: Driver) {
             const result = await session.writeTransaction( tx => {
                 console.log("creating")
                 return tx.run(
-                    "CREATE (n:User) SET n.username = $username SET n.password = $hashedPassword SET n.email = $email RETURN n",
-                    {username, hashedPassword, email}
+                    'CREATE (user:User {username: $username, password: $hashedPassword, email: $email})',
+                    {username, hashedPassword, email, id}
                 )
             })
         } catch(e) {
-            console.log(e)
+            throw new Error("Email is already taken!")
         } finally {
             session.close()
         }
@@ -62,7 +62,7 @@ function handler(driver: Driver) {
 }
 
 export default function userRegister(driver: Driver) {
-    const url = '/auth/register';
+    const url = '/register';
     const method: HTTPMethods = "POST"
 
     return {

@@ -45,17 +45,17 @@ function handler(driver: Driver) {
             const result = await session.writeTransaction( tx => {
                 console.log("creating")
                 return tx.run(
-                    'CREATE (user:User {username: $username, password: $hashedPassword, email: $email})',
+                    'CREATE (user:User {username: $username, password: $hashedPassword, email: $email, id: $id})',
                     {username, hashedPassword, email, id}
                 )
             })
         } catch(e) {
-            throw new Error("Email is already taken!")
+            reply.send(e)
         } finally {
             session.close()
         }
         console.log("created")
-        const jwt = await sign(id)
+        const jwt = await sign(username, id)
         console.log(jwt)
         return reply.send(jwt)
     }

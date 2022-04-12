@@ -60,8 +60,8 @@ function handler(driver: Driver) {
     }
 }
 
-export function getHobbies(driver: Driver) {
-    const url = '/getHobbies';
+export default function getHobbies(driver: Driver) {
+    const url = '/getAllHobbies';
     const method: HTTPMethods = "GET"
   
     return {

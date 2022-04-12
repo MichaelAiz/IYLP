@@ -3,7 +3,8 @@ import { Neo4jError } from 'neo4j-driver-core';
 import neo4j from 'neo4j-driver'
 import login from './api/login.js'
 import register from './api/register.js';
-import { getHobbies } from './api/hobbies.js'
+import getAllHobbies from './api/getAllHobbies.js'
+import createPost from './api/createPost.js';
 
 const fastify = Fastify();
 
@@ -11,7 +12,8 @@ const driver = neo4j.driver('neo4j+s://61728d72.databases.neo4j.io', neo4j.auth.
 
 fastify.route(login(driver))
 fastify.route(register(driver))
-fastify.route(getHobbies(driver))
+fastify.route(getAllHobbies(driver))
+fastify.route(createPost(driver))
 
 const start = async () => {
     try {

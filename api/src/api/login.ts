@@ -8,9 +8,8 @@ import {
 import bcrypt from 'bcrypt'
 import sign from '../lib/jwt.js'
 import { Driver } from 'neo4j-driver'
-import { randomUUID } from 'crypto'
 
-export type loginRequest = {
+export interface loginRequest {
   Querystring: {
     email: string,
     password: string
@@ -45,7 +44,6 @@ function handler(driver: Driver) {
                   {email}
               )
           })
-          console.log(result.records[0].get(1))
           if (result) {
             userId = result.records[0].get(0)
             hashedPassword = result.records[0].get(1)
@@ -67,7 +65,7 @@ function handler(driver: Driver) {
 }
 
 export default function login(driver: Driver) {
-  const url = '/auth/login';
+  const url = '/login';
   const method: HTTPMethods = "GET"
 
   return {

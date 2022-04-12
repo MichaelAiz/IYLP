@@ -10,7 +10,7 @@ import sign from '../lib/jwt.js'
 import { Driver } from 'neo4j-driver'
 import { randomUUID } from 'crypto'
 
-export type newUser = {
+export interface newUser {
     username: string,
     password: string,
     email: string
@@ -62,7 +62,7 @@ function handler(driver: Driver) {
 }
 
 export default function userRegister(driver: Driver) {
-    const url = '/auth/register';
+    const url = '/register';
     const method: HTTPMethods = "POST"
 
     return {

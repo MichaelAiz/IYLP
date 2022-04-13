@@ -15,23 +15,17 @@ export type Hobby = {
     
 }
 
-const validateJwt = (async (req: FastifyRequest, reply: FastifyReply) => {
-    try {
-        if(!req.headers.authorization) {
-            reply.code(401)
-            throw new Error('All requests must be authenticated')
-        }
-        const verifyResult = await verifyJWT(req.headers.authorization)
-    } catch (e) {
-        reply.send(e)
-    }
-})
 
 function handler(driver: Driver) {
     return async function (req: FastifyRequest, reply: FastifyReply) {
         let hobbies: Hobby[] = []
         const session = driver.session()
         try {
+            if(!req.headers.authorization) {
+                reply.code(401)
+                throw new Error('All requests must be authenticated')
+            }
+            const verifyResult = await verifyJWT(req.headers.authorization)
             const result = await session.readTransaction(tx => {
                 return tx.run(
                     'MATCH (hobby:Hobby) RETURN hobby.name, hobby.id ',
@@ -60,14 +54,13 @@ function handler(driver: Driver) {
     }
 }
 
-export function getHobbies(driver: Driver) {
-    const url = '/getHobbies';
+export default function getHobbies(driver: Driver) {
+    const url = '/getAllHobbies';
     const method: HTTPMethods = "GET"
   
     return {
         method,
         url,
-        onRequest: validateJwt,
         handler: handler(driver)
     }
   }

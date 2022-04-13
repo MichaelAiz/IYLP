@@ -64,6 +64,7 @@ export default function likeHobby(driver: Driver) {
     return {
         method,
         url,
+        schema,
         handler: handler(driver)
     }
   }

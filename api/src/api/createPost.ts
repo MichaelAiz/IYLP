@@ -8,15 +8,7 @@ import {
 import { Driver} from 'neo4j-driver'
 import { randomUUID } from 'crypto'
 import verifyJWT from '../auth.js'
-
-export type Post = {
-    dateCreated: String
-    createdByName: string
-    createdByID: string
-    title: string
-    category: String
-    content: string
-}
+import { Post } from './types.js'
 
 export interface createPostRequest {
     Body: {
@@ -24,6 +16,7 @@ export interface createPostRequest {
         title: String
         category: String
         content: String
+        hobby_id: String
     }
 }
 
@@ -41,6 +34,9 @@ const schema = {
                 type: 'string'
             },
             title: {
+                type: 'string'
+            },
+            hobby_id: {
                 type: 'string'
             }
         },
@@ -62,16 +58,17 @@ function handler(driver: Driver) {
             const title = req.body.title
             const content = req.body.content
             const post_id = randomUUID()
+            const hobby_id = req.body.hobby_id
             console.log(verifyResult.sub.split('/'))
             const [username, user_id] = verifyResult.sub.split('/')
-            const query = `MATCH (user:User {id: $user_id}) CREATE (post:Post {dateCreated: $date, createdByName: $username, createdByID: $user_id, category: $post_category, title: $title, content: $content, id: $post_id}), 
-            (user)-[r:created]->(post)`
+            const query = `MATCH (user:User {id: $user_id}), (hobby:Hobby {id: $hobby_id}) CREATE (post:Post {dateCreated: $date, createdByName: $username, createdByID: $user_id, category: $post_category, title: $title, content: $content, id: $post_id}), 
+            (user)-[r:created]->(post), (hobby)-[:has_post]->(post)`
             
 
             const result = await session.writeTransaction(tx => {
                 return tx.run(
                     query,
-                    { date, username, user_id, post_category, title, content, post_id }
+                    { date, username, user_id, hobby_id, post_category, title, content, post_id }
                 )
             })
             reply.send("Success")

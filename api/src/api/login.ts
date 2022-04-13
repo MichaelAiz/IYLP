@@ -41,12 +41,12 @@ function handler(driver: Driver) {
       try {
           const result = await session.readTransaction( tx => {
               return tx.run(
-                  'MATCH (user:User {email: $email}) RETURN user.name, user.user.id, user.password',
+                  'MATCH (user:User {email: $email}) RETURN user.username, user.id, user.password',
                   {email}
               )
           })
           if (result) {
-            username = result.records[0].get('user.name')
+            username = result.records[0].get('user.username')
             userId = result.records[0].get('user.id')
             hashedPassword = result.records[0].get('user.password')
           } else {

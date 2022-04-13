@@ -5,6 +5,7 @@ import login from './api/login.js'
 import register from './api/register.js';
 import getAllHobbies from './api/getAllHobbies.js'
 import createPost from './api/createPost.js';
+import likeHobby from './api/likeHobby.js';
 
 const fastify = Fastify();
 
@@ -14,6 +15,7 @@ fastify.route(login(driver))
 fastify.route(register(driver))
 fastify.route(getAllHobbies(driver))
 fastify.route(createPost(driver))
+fastify.route(likeHobby(driver))
 
 const start = async () => {
     try {

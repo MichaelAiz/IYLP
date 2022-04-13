@@ -8,7 +8,8 @@ import {
 import { Driver} from 'neo4j-driver'
 
 import verifyJWT from '../auth.js'
-import { Hobby } from './types.js'
+import { Hobby } from './types.js';
+
 
 function handler(driver: Driver) {
     return async function (req: FastifyRequest, reply: FastifyReply) {
@@ -20,9 +21,11 @@ function handler(driver: Driver) {
                 throw new Error('All requests must be authenticated')
             }
             const verifyResult = await verifyJWT(req.headers.authorization)
+            const [username, user_id] = verifyResult.sub.split('/')
             const result = await session.readTransaction(tx => {
                 return tx.run(
-                    'MATCH (hobby:Hobby) RETURN hobby.name, hobby.id ',
+                    'MATCH (user:User {id: $user_id})-[likes]->(hobby) RETURN hobby.name, hobby.id',
+                    { user_id }
                 )
             })
             if (result) {
@@ -37,7 +40,7 @@ function handler(driver: Driver) {
                     }
                 })
             } else {
-                throw new Error("No user found")
+                throw new Error("No result found")
             }
             reply.send(hobbies)
         } catch (e) {
@@ -48,8 +51,8 @@ function handler(driver: Driver) {
     }
 }
 
-export default function getHobbies(driver: Driver) {
-    const url = '/getAllHobbies';
+export default function getAllPosts(driver: Driver) {
+    const url = '/getAllPosts';
     const method: HTTPMethods = "GET"
   
     return {

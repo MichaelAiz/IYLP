@@ -79,7 +79,7 @@ function handler(driver: Driver) {
 }
 
 export default function getAllPosts(driver: Driver) {
-    const url = '/getAllPosts';
+    const url = '/api/getAllPosts';
     const method: HTTPMethods = "GET"
   
     return {

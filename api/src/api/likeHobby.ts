@@ -5,7 +5,7 @@ import {
 
 } from 'fastify';
 
-import { Driver} from 'neo4j-driver'
+import { Driver } from 'neo4j-driver'
 import { randomUUID } from 'crypto'
 import verifyJWT from '../auth.js'
 
@@ -32,7 +32,7 @@ function handler(driver: Driver) {
     return async function (req: FastifyRequest<hobbyLikeRequest>, reply: FastifyReply) {
         const session = driver.session()
         try {
-            if(!req.headers.authorization) {
+            if (!req.headers.authorization) {
                 reply.code(401)
                 throw new Error('All requests must be authenticated')
             }
@@ -48,8 +48,10 @@ function handler(driver: Driver) {
                     { hobby_id, user_id }
                 )
             })
-           return reply.send()
+            session.close()
+            return reply.send()
         } catch (e) {
+            session.close()
             return reply.send(e)
         } finally {
             session.close()
@@ -58,13 +60,13 @@ function handler(driver: Driver) {
 }
 
 export default function likeHobby(driver: Driver) {
-    const url = '/likeHobby';
+    const url = '/api/likeHobby';
     const method: HTTPMethods = "POST"
-  
+
     return {
         method,
         url,
         schema,
         handler: handler(driver)
     }
-  }
+}

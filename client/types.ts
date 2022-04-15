@@ -15,5 +15,5 @@ export interface LoginRequestBody {
 
 export type LoginResponse = {
     result: string,
-    paylaod: string
+    payload: string
 }

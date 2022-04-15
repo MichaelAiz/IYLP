@@ -7,8 +7,12 @@ import getAllHobbies from './api/getAllHobbies.js'
 import createPost from './api/createPost.js';
 import likeHobby from './api/likeHobby.js';
 import getAllPosts from './api/getAllPosts.js';
+import getAllLikedHobbies from './api/getAllLikedHobbies.js';
+import fastifyCors from 'fastify-cors';
 
 const fastify = Fastify();
+
+fastify.register(fastifyCors, { origin: 'http://localhost:3000' });
 
 const driver = neo4j.driver('neo4j+s://61728d72.databases.neo4j.io', neo4j.auth.basic('neo4j', 'u-KggzQCAN1s2BqjL1n8XkbcsJfCA5CJc9iHaIvJoyQ'))
 
@@ -18,11 +22,12 @@ fastify.route(getAllHobbies(driver))
 fastify.route(createPost(driver))
 fastify.route(likeHobby(driver))
 fastify.route(getAllPosts(driver))
+fastify.route(getAllLikedHobbies(driver))
 
 const start = async () => {
     try {
         console.log("starting")
-        await fastify.listen(3000, "0.0.0.0")
+        await fastify.listen(3001, "0.0.0.0")
     } catch (err) {
         fastify.log.error(err)
     }

@@ -10,14 +10,14 @@ import sign from '../lib/jwt.js'
 import { Driver } from 'neo4j-driver'
 
 export interface loginRequest {
-  Querystring: {
+  Body: {
     email: string,
     password: string
   }
 }
 
 const schema = {
-  querystring: {
+  body: {
       type: 'object',
       properties: {
           email: {
@@ -34,7 +34,8 @@ const schema = {
 function handler(driver: Driver) {
   return async function (req: FastifyRequest<loginRequest>, reply: FastifyReply) {
       const session = driver.session()
-      const { email, password } = req.query
+      const { email, password } = req.body
+      console.log("HELLO")
       let username = ""
       let userId = ""
       let hashedPassword = ""
@@ -53,22 +54,22 @@ function handler(driver: Driver) {
             throw new Error("No user found")
           }
       } catch(e) {
-          throw new Error(e)
+          reply.send({result: "FAILURE", payload: e.message})
       } finally {
           session.close()
       }
       if (await bcrypt.compare(password, hashedPassword)){
         const jwt = await sign(username, userId)
-        return reply.send(jwt)
+        return reply.send({result: "SUCCESS", payload: jwt})
       } else {
-        return reply.send("Password no match")
+        return reply.send({result: "FAILURE", payload: "Wrong Password"})
       }
   }
 }
 
 export default function login(driver: Driver) {
   const url = '/login';
-  const method: HTTPMethods = "GET"
+  const method: HTTPMethods = "POST"
 
   return {
       method,

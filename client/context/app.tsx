@@ -3,6 +3,7 @@ import React, { createContext, ReactNode, useState } from "react";
 export type AppState = {
     userID: string,
     username: string
+    jwt: string
 };
 
 const initialState = {};

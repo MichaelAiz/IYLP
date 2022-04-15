@@ -59,6 +59,8 @@ function handler(driver: Driver) {
             const content = req.body.content
             const post_id = randomUUID()
             const hobby_id = req.body.hobby_id
+            //Use this to clean this all up later
+            //const postConfig = {...req.body}
             console.log(verifyResult.sub.split('/'))
             const [username, user_id] = verifyResult.sub.split('/')
             const query = `MATCH (user:User {id: $user_id}), (hobby:Hobby {id: $hobby_id}) CREATE (post:Post {dateCreated: $date, createdByName: $username, createdByID: $user_id, category: $post_category, title: $title, content: $content, id: $post_id}), 

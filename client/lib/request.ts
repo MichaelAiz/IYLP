@@ -16,21 +16,13 @@ export type RequestOptions = {
     console.log(options?.body)
 
     const body = JSON.stringify(options?.body)
-    console.log(body)
-    console.log("here")
-    console.log(headers)
   
     const res = await fetch(url, {
       method,
       mode: "cors",
       body,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${options?.headers.authorization}`
-      }
+      headers
     });
-
-    console.log(res)
   
     return res.json();
   };

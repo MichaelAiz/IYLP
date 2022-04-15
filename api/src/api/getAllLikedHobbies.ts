@@ -51,8 +51,8 @@ function handler(driver: Driver) {
     }
 }
 
-export default function getAllPosts(driver: Driver) {
-    const url = '/getAllPosts';
+export default function getAllLikedHobbies(driver: Driver) {
+    const url = '/getAllLikedHobbies';
     const method: HTTPMethods = "GET"
   
     return {

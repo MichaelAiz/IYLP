@@ -83,7 +83,7 @@ function handler(driver: Driver) {
 }
 
 export default function createPost(driver: Driver) {
-    const url = '/createPost';
+    const url = '/api/createPost';
     const method: HTTPMethods = "POST"
   
     return {

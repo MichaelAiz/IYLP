@@ -52,7 +52,7 @@ function handler(driver: Driver) {
 }
 
 export default function getAllLikedHobbies(driver: Driver) {
-    const url = '/getAllLikedHobbies';
+    const url = '/api/getAllLikedHobbies';
     const method: HTTPMethods = "GET"
   
     return {

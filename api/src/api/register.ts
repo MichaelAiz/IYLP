@@ -62,7 +62,7 @@ function handler(driver: Driver) {
 }
 
 export default function userRegister(driver: Driver) {
-    const url = '/register';
+    const url = '/api/register';
     const method: HTTPMethods = "POST"
 
     return {

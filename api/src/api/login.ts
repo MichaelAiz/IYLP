@@ -35,7 +35,6 @@ function handler(driver: Driver) {
   return async function (req: FastifyRequest<loginRequest>, reply: FastifyReply) {
       const session = driver.session()
       const { email, password } = req.body
-      console.log("HELLO")
       let username = ""
       let userId = ""
       let hashedPassword = ""
@@ -54,21 +53,22 @@ function handler(driver: Driver) {
             throw new Error("No user found")
           }
       } catch(e) {
-          reply.send({result: "FAILURE", payload: e.message})
+          reply.send({result: "ERROR", payload: e.message})
       } finally {
           session.close()
       }
       if (await bcrypt.compare(password, hashedPassword)){
         const jwt = await sign(username, userId)
+        console.log(jwt)
         return reply.send({result: "SUCCESS", payload: jwt})
       } else {
-        return reply.send({result: "FAILURE", payload: "Wrong Password"})
+        return reply.send({result: "ERROR", payload: "Wrong Password"})
       }
   }
 }
 
 export default function login(driver: Driver) {
-  const url = '/login';
+  const url = '/api/login';
   const method: HTTPMethods = "POST"
 
   return {

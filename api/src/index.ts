@@ -8,6 +8,7 @@ import createPost from './api/createPost.js';
 import likeHobby from './api/likeHobby.js';
 import getAllPosts from './api/getAllPosts.js';
 import getAllLikedHobbies from './api/getAllLikedHobbies.js';
+import introspect from './api/introspect.js'
 import fastifyCors from 'fastify-cors';
 
 const fastify = Fastify();
@@ -23,6 +24,7 @@ fastify.route(createPost(driver))
 fastify.route(likeHobby(driver))
 fastify.route(getAllPosts(driver))
 fastify.route(getAllLikedHobbies(driver))
+fastify.route(introspect(driver))
 
 const start = async () => {
     try {

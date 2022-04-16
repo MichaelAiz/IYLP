@@ -27,11 +27,11 @@ function handler(driver: Driver) {
             })
             if (result) {
                 result.records.forEach((record) => {
-                    const hobby_name: string = record.get('hobby.name')
+                    const name: string = record.get('hobby.name')
                     const id: string = record.get('hobby.id')
-                    if (hobby_name && id) {
+                    if (name && id) {
                         hobbies.push({
-                            hobby_name,
+                            name,
                             id
                         })
                     }

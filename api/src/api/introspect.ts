@@ -19,9 +19,10 @@ function handler(driver: Driver) {
                 throw new Error('All requests must be authenticated')
             }
             const verifyResult = await verifyJWT(req.headers.authorization)
-            reply.send({result: 'SUCCESS', payload: verifyResult})
+            console.log('verfied')
+            reply.send(verifyResult)
         } catch (e) {
-            reply.send({result: 'ERROR', payload: e.message ? e.message : 'An error occured while verifying your jwt'})
+            reply.send(e)
         } finally {
             session.close()
         }

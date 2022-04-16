@@ -1,5 +1,5 @@
 export type Hobby = {
-    hobby_name: string
+    name: string
     id: string 
 }
 

@@ -2,14 +2,15 @@ import styles from './Login.module.css'
 import React, { useContext, useState } from "react";
 import AppContext, { AppState } from '../context/app';
 
-export type LoginProps = {
-    onLogin: (email: string, password: string) => void
-    loginState: 'WAITING' | 'ERROR' | 'SUCCESS'
+export type RegisterProps = {
+    onRegister: (username: string, email: string, password: string) => void
+    registerState: 'WAITING' | 'ERROR' | 'SUCCESS'
 }
 
-const LoginPage: React.FC<LoginProps> = ({ onLogin, loginState}) => {
+const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }) => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
 
     return (
         <div className="h-screen w-full">
@@ -19,16 +20,24 @@ const LoginPage: React.FC<LoginProps> = ({ onLogin, loginState}) => {
                         <div className='mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:text-left lg:flex lg:items-center'>
                             <div>
                                 <h1 className='text-4xl pb-2 mb-2'>
-                                    <span className='block'>Continue Exploring New Passions</span>
+                                    <span className='block'>Start Exploring New Passions</span>
                                 </h1>
-                                <p className='sm:text-2xl'>or, register now</p>
+                                <p className='sm:text-2xl'>or, login now</p>
                             </div>
                         </div>
                         <div className='mx-auto px-4 sm:px-6 lg:px-0 flex justify-center'>
                             <div className="min-h-full pr-">
                                 <div>
                                     <div className='text-3xl'>
-                                        <h1>Sign in</h1>
+                                        <h1>Register now</h1>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className='sr-only'>Username</label>
+                                        <input type="text" placeholder='Enter username' className='w-full bg-blue-200 placeholder-white rounded-md py-3 pr-24 pl-3 mt-5'
+                                            onChange={(e) => {
+                                                setUsername(e.target.value)
+                                            }}
+                                        />
                                     </div>
                                     <div>
                                         <label htmlFor="email" className='sr-only'>Email</label>
@@ -50,7 +59,7 @@ const LoginPage: React.FC<LoginProps> = ({ onLogin, loginState}) => {
                                         <button className='w-full rounded-md py-3 text-white mt-20 bg-violet-400' onClick={(e) => {
                                             e.preventDefault()
                                             console.log("Logging in")
-                                            onLogin(email, password)
+                                            onRegister(username, email, password)
                                         }}>
                                             Login
                                         </button>
@@ -65,4 +74,4 @@ const LoginPage: React.FC<LoginProps> = ({ onLogin, loginState}) => {
     )
 }
 
-export default LoginPage
+export default RegistrationPage

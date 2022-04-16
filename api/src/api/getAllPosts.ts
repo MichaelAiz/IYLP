@@ -69,6 +69,7 @@ function handler(driver: Driver) {
             } else {
                 throw new Error("No result found")
             }
+            console.log(posts)
             reply.send(posts)
         } catch (e) {
             reply.send(e)

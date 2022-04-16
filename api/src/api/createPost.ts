@@ -66,16 +66,15 @@ function handler(driver: Driver) {
             const query = `MATCH (user:User {id: $user_id}), (hobby:Hobby {id: $hobby_id}) CREATE (post:Post {dateCreated: $date, createdByName: $username, createdByID: $user_id, category: $post_category, title: $title, content: $content, id: $post_id}), 
             (user)-[r:created]->(post), (hobby)-[:has_post]->(post)`
             
-
             const result = await session.writeTransaction(tx => {
                 return tx.run(
                     query,
                     { date, username, user_id, hobby_id, post_category, title, content, post_id }
                 )
             })
-            reply.send("Success")
+            reply.send({result: "SUCCESS", payload: ''})
         } catch (e) {
-            reply.send(e)
+            reply.send({result:"FAILURE", payload: e.message})
         } finally {
             session.close()
         }

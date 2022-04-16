@@ -3,19 +3,19 @@ import { useContext, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router'
 import AppContext, { AppState } from '../context/app'
-import LoginPage from '../components/Login'
+import RegisterPage from '../components/Register'
 import request from '../lib/request'
-import { LoginRequestBody, APIResponse } from '../types';
+import { LoginRequestBody, APIResponse, RegisterRequestBody} from '../types';
 import { JWTPayload } from 'jose'
 import { route } from 'next/dist/server/router';
 import dashboard from './dashboard';
 
-export type loginState = 'WAITING' | 'ERROR' | 'SUCCESS'
+export type registerState = 'WAITING' | 'ERROR' | 'SUCCESS'
 
-const login = () => {
+const register = () => {
     const router = useRouter()
     const { state, setState } = useContext(AppContext)
-    const [loginState, setLoginState] = useState<loginState>('WAITING')
+    const [registerState, setRegisterState] = useState<registerState>('WAITING')
 
     useEffect(() => {
         if (state) {
@@ -23,18 +23,19 @@ const login = () => {
         }
     })
 
-    const onLogin = async (email: string, password: string) => {
+    const onRegister = async (username: string, email: string, password: string) => {
         if (!state && setState) {
-            const loginBody: LoginRequestBody = {
+            const registerBody: RegisterRequestBody = {
+                username,
                 email,
                 password
             }
-            const result: APIResponse = await request('POST', 'http://localhost:3001/api/login', { headers: {}, body: loginBody })
+            const result: APIResponse = await request('POST', 'http://localhost:3001/api/register', { headers: {}, body: registerBody })
             const verifyResult: JWTPayload = await request('GET', 'http://localhost:3001/api/introspect', { headers: { authorization: result.payload } })
             console.log(verifyResult)
             if (!verifyResult || !verifyResult.sub) {
                 console.log("ERROR")
-                setLoginState('ERROR')
+                setRegisterState('ERROR')
             } else {
                 const [username, user_id] = verifyResult.sub.split('/')
                 setState({
@@ -49,9 +50,9 @@ const login = () => {
 
     return (
         <div className='h-full'>
-            <LoginPage onLogin={onLogin} loginState={loginState} />
+            <RegisterPage onRegister={onRegister} registerState={registerState} />
         </div>
     )
 }
 
-export default login;
+export default register;

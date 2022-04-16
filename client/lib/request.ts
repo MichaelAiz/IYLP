@@ -1,13 +1,13 @@
-import { PostRequestBody, LoginRequestBody } from "../types";
+import { LoginRequestBody, PostConfig, RegisterRequestBody } from "../types";
 
 export type RequestOptions = {
-    headers: {
+    headers?: {
       authorization?: string;
     }
-    body? : PostRequestBody | LoginRequestBody 
+    body? : PostConfig| LoginRequestBody | URLSearchParams | RegisterRequestBody
   };
   
-  const request = async (method: string, url: RequestInfo, options?: RequestOptions) => {
+  const request = async (method: string, url: RequestInfo, options: RequestOptions) => {
     const headers = new Headers({
       "content-type": "application/json",
       ...(options?.headers?.authorization && { "Authorization": options.headers.authorization }),

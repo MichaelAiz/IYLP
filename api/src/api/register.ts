@@ -50,14 +50,13 @@ function handler(driver: Driver) {
                 )
             })
         } catch(e) {
-            reply.send(e)
+            reply.send({result: 'FAILURE', payload: e.message})
         } finally {
             session.close()
         }
-        console.log("created")
         const jwt = await sign(username, id)
         console.log(jwt)
-        return reply.send(jwt)
+        return reply.send({result: 'SUCCESS', payload: jwt})
     }
 }
 

@@ -1,19 +1,34 @@
 import { GetContent } from "react-tooltip"
 
-export interface PostRequestBody {
-    date: string
-    category: string
-    content: string
-    title: string
-    hobby_id: string
-}
+
 
 export interface LoginRequestBody {
     email: string
     password: string
 }
 
-export type LoginResponse = {
+export interface RegisterRequestBody {
+    username: string
+    email: string
+    password: string
+}
+
+export type APIResponse = {
     result: string,
     payload: string
+}
+
+export type Hobby = {
+    name: string,
+    id: string
+}
+
+export type PostConfig = {
+    date: string,
+    createdBy: string,
+    opID: string,
+    hobby_id: string,
+    title: string,
+    category: string,
+    content: string
 }

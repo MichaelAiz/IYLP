@@ -1,9 +1,11 @@
 import React, { createContext, ReactNode, useState } from "react";
+import { Hobby } from "../types";
 
 export type AppState = {
     userID: string,
     username: string
     jwt: string
+    activeHobby?: Hobby
 };
 
 const initialState = {};

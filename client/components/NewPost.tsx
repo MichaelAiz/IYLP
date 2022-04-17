@@ -23,16 +23,16 @@ const NewPost = ({ category, CreateNewPost }: NewPostProps) => {
     }
 
     return (
-        <div className='mt-2 bg-white shadow-md px-2 py-2 rounded-md' >
+        <div className='mt-8 bg-white shadow-md px-2 pt-2 pb-4  rounded-md' >
             <div className='mx-auto px-4 sm:px-6 lg:px-0 flex justify-center'>
                 <div className="min-h-full">
                     <div>
                         <div className='text-2xl'>
-                            <h1>Make a new Post in {category}</h1>
+                            <h1>Make a new post in {category}</h1>
                         </div>
                         <div>
                             <label htmlFor="email" className='sr-only'>Email</label>
-                            <input type="text" placeholder='Title' className='w-full bg-blue-200 placeholder-white rounded-md py-3 pr-24 pl-3 mt-5'
+                            <input type="text" placeholder='Title' className='w-full bg-blue-200 placeholder-white rounded-md py-3  pl-3 mt-5'
                                 onChange={(e) => {
                                     setTitle(e.target.value)
                                 }}
@@ -40,7 +40,7 @@ const NewPost = ({ category, CreateNewPost }: NewPostProps) => {
                         </div>
                         <div>
                             <label htmlFor="email" className='sr-only'>Content</label>
-                            <textarea placeholder='Content' className='w-full border text-white bg-blue-200 placeholder-white rounded-md py-3 pr-24 pl-3 mt-2'
+                            <textarea placeholder='Content' className='w-full border text-white bg-blue-200 placeholder-white rounded-md py-3 pl-3 mt-2'
                                 onChange={(e) => { 
                                     setContent(e.target.value)
                                 }}>

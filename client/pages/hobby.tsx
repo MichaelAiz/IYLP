@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { MenuAlt1Icon } from '@heroicons/react/outline';
 import HobbyNav from '../components/HobbyNav';
 import Header from '../components/Header';
 import AppContext from '../context/app';
@@ -7,6 +6,7 @@ import Exchange from '../components/views/Exchange';
 import { APIResponse, Hobby, PostConfig } from '../types';
 import request from '../lib/request';
 import NewPost from '../components/NewPost';
+import Tips from '../components/views/Tips';
 
 const HobbyPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,40 +18,55 @@ const HobbyPage = () => {
     return <h1>Loading</h1>
   }
 
+  const hobby: Hobby = state.activeHobby
+
+  const filterPosts = (posts: PostConfig[], category:string) => {
+    return posts.filter((post) => {
+      return post.category == category
+    })
+  }
+
+  const getPosts = async () => {
+    const result: APIResponse = await request('GET', `http://localhost:3001/api/getAllPosts?hobby_id=${state.activeHobby?.id}`, { headers: { authorization: state.jwt } })
+    const allPosts: PostConfig[] = JSON.parse(result.payload)
+    const activeNavPosts = filterPosts(allPosts, activeNav)
+    setPosts(activeNavPosts)
+  }
+
   useEffect(() => {
-    const getPosts = async () => {
-      const posts: PostConfig[] = await request('GET', `http://localhost:3001/api/getAllPosts?hobby_id=${state.activeHobby?.id}`, { headers: { authorization: state.jwt } })
-      setPosts(posts)
-    }
     getPosts()
-  }, [])
+  }, [activeNav])
+
+
 
   const newPost = async (requestBody: PostConfig) => {
-    const result: APIResponse = await request('POST', `http://localhost:3001/api/createPost`, { headers: { authorization: state.jwt }, body: requestBody})
+    const result: APIResponse = await request('POST', `http://localhost:3001/api/createPost`, { headers: { authorization: state.jwt }, body: requestBody })
+    getPosts()
+  }
+
+  const saveHobby = async () => {
+    const result: APIResponse = await request('POST', `http://localhost:3001/api/likeHobby`, { headers: { authorization: state.jwt }, body: { hobby_id: hobby.id } })
     console.log(result.result)
-    const posts: PostConfig[] = await request('GET', `http://localhost:3001/api/getAllPosts?hobby_id=${state.activeHobby?.id}`, { headers: { authorization: state.jwt } })
-    setPosts(posts)
   }
 
   return (
     <div className="">
-      <Header state={state} />
-      <div className='grid grid-cols-3 h-screen'>
+      <Header state={state} onHobbySave={saveHobby} />
+      <div className='lg:grid lg:grid-cols-6 h-screen'>
         <div className='w-52 justify-self-left'>
           <HobbyNav
             activeNav={activeNav} setActiveNav={setActiveNav}
-            currentHobby={state.activeHobby?.name ? state.activeHobby.name : ''}
           />
         </div>
-        <main className="pb-8 justify-self-">
-          <div className="mt-8">
-            {activeNav === 'Exchange' && (<Exchange state={state} allPosts={posts} />)}
-            {/* { activeNav === 'Tips' && (<Tips state={state} />) }
-            { activeNav === 'Questions' && (<Questions state={state} />) } */}
+        <main className="pb-8 col-span-3 flex justify-center ">
+          <div className="mt-8 w-4/5">
+            {activeNav === 'Exchange' && (<Exchange posts={posts} />)}
+            {activeNav === 'Tips' && (<Tips posts={posts} />)}
+            {/* { activeNav === 'Questions' && (<Questions state={state} />) } */}
           </div>
         </main>
-        <div className='justify-self-center'>
-            <NewPost category={activeNav} CreateNewPost={newPost}/>
+        <div className='justify-self-center col-span-2'>
+          <NewPost category={activeNav} CreateNewPost={newPost} />
         </div>
       </div>
     </div>

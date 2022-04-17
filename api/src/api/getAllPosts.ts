@@ -70,7 +70,7 @@ function handler(driver: Driver) {
                 throw new Error("No result found")
             }
             console.log(posts)
-            reply.send(posts)
+            reply.send({result: "SUCCESS", payload: JSON.stringify(posts)})
         } catch (e) {
             reply.send(e)
         } finally {

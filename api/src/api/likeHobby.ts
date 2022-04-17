@@ -49,10 +49,10 @@ function handler(driver: Driver) {
                 )
             })
             session.close()
-            return reply.send()
+            return reply.send({result: "SUCCESS", payload: ""})
         } catch (e) {
             session.close()
-            return reply.send(e)
+            return reply.send({result: "FAILURE", payload: e.message})
         } finally {
             session.close()
         }

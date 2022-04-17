@@ -1,6 +1,7 @@
 import styles from './Login.module.css'
 import React, { useContext, useState } from "react";
 import AppContext, { AppState } from '../context/app';
+import Router, { useRouter } from 'next/router';
 
 export type RegisterProps = {
     onRegister: (username: string, email: string, password: string) => void
@@ -11,6 +12,7 @@ const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [username, setUsername] = useState<string>('')
+    const router = useRouter()
 
     return (
         <div className="h-screen w-full">
@@ -22,7 +24,11 @@ const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }
                                 <h1 className='text-4xl pb-2 mb-2'>
                                     <span className='block'>Start Exploring New Passions</span>
                                 </h1>
-                                <p className='sm:text-2xl'>or, login now</p>
+                                <p className='sm:text-2xl'>or, <a
+                                    className='text-button-blue cursor-pointer'
+                                    onClick={() => { router.push('/login') }}>
+                                    login now
+                                </a></p>
                             </div>
                         </div>
                         <div className='mx-auto px-4 sm:px-6 lg:px-0 flex justify-center'>

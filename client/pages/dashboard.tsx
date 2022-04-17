@@ -14,14 +14,13 @@ const dashboard = () => {
     const [hobbyOptions, setHobbyOptions] = useState<Hobby[]>([])
     const router = useRouter()
 
-    if(!state){
+    if (!state) {
         return <h1>Loading</h1>
     }
 
     useEffect(() => {
         if (state) {
             const getAllHobbies = async () => {
-                console.log('here')
                 const hobbies: Hobby[] = await request('GET', 'http://localhost:3001/api/getAllHobbies', { headers: { authorization: state.jwt } })
                 setHobbyOptions(hobbies)
             }
@@ -30,26 +29,24 @@ const dashboard = () => {
     }, [])
 
     const onHobbySelect = (hobby: Hobby) => {
-        const newState = {...state, ...{activeHobby: hobby}}
-        if(setState) {
+        const newState = { ...state, ...{ activeHobby: hobby } }
+        if (setState) {
             setState(newState)
             router.push('/hobby')
         }
     }
 
     return (
-        <div className='w-full h-screen'>
+        <div className='w-full h-screen grid grid-cols-5'>
             <div>
                 <DashboardNav></DashboardNav>
             </div>
-            <div className=" w-full h-full flex justify-center">
-                <div className='flex w-full flex-col items-center mt-10'>
-                    <div className=' text-3xl text-center' >
-                        What is your hobby?
+            <div className="col-span-3 flex justify-center ">
+                <div className='text-center w-2/3 flex flex-col '>
+                    <div className='text-3xl mt-10 font-bold mb-3'>
+                        What is your Hobby?
                     </div>
-                    <div className='w-2/5 mt-5'>
-                        <SearchComponent options={hobbyOptions} onClick={onHobbySelect}/>
-                    </div>
+                    <SearchComponent onClick={onHobbySelect} options={hobbyOptions} />
                 </div>
             </div>
         </div>

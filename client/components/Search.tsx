@@ -3,7 +3,10 @@ import { useEffect } from "react";
 import { Hobby } from "../types";
 import request from "../lib/request";
 import AppContext, { AppState } from '../context/app'
-import { on } from "events";
+import {
+    SearchIcon
+} from '@heroicons/react/outline';
+
 
 export type SearchProps = {
     options: Hobby[]
@@ -29,39 +32,40 @@ const SearchComponent:React.FC<SearchProps> = ({
 
     return (
         <>
-            <div className="">
+            <div className="mt-2 ">
                 <label htmlFor="search" className="sr-only">
                     Search
                 </label>
-                <div>
+                <div className="">
                     <input
                         id="search"
                         role="search-box"
-                        className=" w-full bg-blue-200 placeholder-white rounded-md mb-2 py-3 pr-3 pl-3 "
+                        className=" w-full bg-white border-2 focus:outline-IYLP-Violet focus:border-0 rounded-md mb-2 py-3 pr-3 pl-3 placeholder-gray-500 "
                         autoComplete="off"
-                        placeholder="Testing"
+                        placeholder="ex. Air Hockey"
                         type="search"
                         name="search"
                         onChange={(event: React.FormEvent<HTMLInputElement>) => {
                             const nextOptions = filterInput(options, event.currentTarget.value);
-                            console.log(activeOptions)
                             setActiveOptions(nextOptions)
                         }}
                         onFocus={e => e.currentTarget.select()}
                     />
                 </div>
-                <ul className="grid grid-cols-1 gap-4">
+                <ul className="flex flex-col mt-4 gap-2">
                         {activeOptions.map((hobby) => <a 
+                        key={hobby.id}
                         onClick={() => {
                             onClick(hobby)
                         }}
-                        className="rounded-lg shadow-md px-5 pt-10 pb-4 bg-violet-200 flex items-center cursor-pointer tsxt-sm font-semibold">
-                            {hobby.name}
+                        className="rounded-lg shadow-md px-6 py-5 pb-4 hover:bg-IYLP-blue border-gray-300 text-md flex content-center cursor-pointer font-mono">
+                            <p>{hobby.name}</p>
                         </a>) }
                 </ul>
             </div>
         </>
     )
 }
+
 
 export default SearchComponent;

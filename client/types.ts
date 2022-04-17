@@ -1,6 +1,3 @@
-import { GetContent } from "react-tooltip"
-
-
 
 export interface LoginRequestBody {
     email: string

@@ -4,7 +4,7 @@ export type RequestOptions = {
     headers?: {
       authorization?: string;
     }
-    body? : PostConfig| LoginRequestBody | URLSearchParams | RegisterRequestBody
+    body? : PostConfig | LoginRequestBody | URLSearchParams | RegisterRequestBody | {hobby_id: string}
   };
   
   const request = async (method: string, url: RequestInfo, options: RequestOptions) => {
@@ -12,8 +12,6 @@ export type RequestOptions = {
       "content-type": "application/json",
       ...(options?.headers?.authorization && { "Authorization": options.headers.authorization }),
     })
-
-    console.log(options?.body)
 
     const body = JSON.stringify(options?.body)
   

@@ -37,6 +37,7 @@ const schema = {
 function handler(driver: Driver) {
     return async function (req: FastifyRequest, reply: FastifyReply) {
         const session = driver.session()
+        console.log(session)
         const saltRounds = 10
         const { username, password, email } = req.body as newUser
         const hashedPassword = await bcrypt.hash(password, saltRounds)
@@ -54,6 +55,7 @@ function handler(driver: Driver) {
         } finally {
             session.close()
         }
+        console.log('hellooo')
         const jwt = await sign(username, id)
         console.log(jwt)
         return reply.send({result: 'SUCCESS', payload: jwt})

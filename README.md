@@ -1,6 +1,6 @@
-# Neuro-Diagnostic
+# If You Like Pina Coladas
 
-![HomePage](assets/HomePage.JPG)
+![Demo](demo.gif)
 
 ![ScanResult](assets/ScanResult.JPG)
 
@@ -13,13 +13,10 @@
 ## How I built it ❓
 
 
-Accuracy |  ROC
-:-------------------------:|:-------------------------:
-![Accuracy](assets/AccuracyPlot.JPG)  |  ![ROC](assets/ROC.JPG)
 
 ## Challenges 😣
 
 
 ## What I learned 🧠
-I learned many different things by working on this project. Some of these included preprocessing techniques for images, metrics for machine learning model analysis, and how to build a Tensorflow input pipeline with TFrecords. 
+
 

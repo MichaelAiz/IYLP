@@ -8,6 +8,7 @@ export type RequestOptions = {
   };
   
   const request = async (method: string, url: RequestInfo, options: RequestOptions) => {
+    console.log(url)
     const headers = new Headers({
       "content-type": "application/json",
       ...(options?.headers?.authorization && { "Authorization": options.headers.authorization }),

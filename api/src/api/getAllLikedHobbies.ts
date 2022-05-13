@@ -23,7 +23,6 @@ function handler(driver: Driver) {
             }
             const verifyResult = await verifyJWT(req.headers.authorization)
             const [username, user_id] = verifyResult.sub.split('/')
-            console.log("first step done")
             const result = await session.readTransaction(tx => {
                 return tx.run(
                     'MATCH (user:User {id: $user_id})-[likes]->(hobby) RETURN hobby.name, hobby.id',
@@ -31,7 +30,6 @@ function handler(driver: Driver) {
                 )
             })
             if (result) {
-                console.log("got it")
                 result.records.forEach((record) => {
                     const name: string = record.get('hobby.name')
                     const id: string = record.get('hobby.id')

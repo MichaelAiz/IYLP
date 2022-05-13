@@ -40,7 +40,7 @@ const NewPost = ({ category, CreateNewPost }: NewPostProps) => {
                         </div>
                         <div>
                             <label htmlFor="email" className='sr-only'>Content</label>
-                            <textarea placeholder='Content' className='w-full border text-white bg-blue-200 placeholder-white rounded-md py-3 pl-3 mt-2'
+                            <textarea placeholder='Content' className='w-full border bg-blue-200 placeholder-white rounded-md py-3 pl-3 mt-2'
                                 onChange={(e) => { 
                                     setContent(e.target.value)
                                 }}>

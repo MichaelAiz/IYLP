@@ -39,7 +39,7 @@ const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }
                                     </div>
                                     <div>
                                         <label htmlFor="email" className='sr-only'>Username</label>
-                                        <input type="text" placeholder='Enter username' className='w-full bg-blue-200 placeholder-white rounded-md py-3 pr-24 pl-3 mt-5'
+                                        <input type="text" placeholder='Enter username' className='w-full bg-blue-200 placeholder-violet-text rounded-md py-3 pr-24 pl-3 mt-5'
                                             onChange={(e) => {
                                                 setUsername(e.target.value)
                                             }}
@@ -47,7 +47,7 @@ const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }
                                     </div>
                                     <div>
                                         <label htmlFor="email" className='sr-only'>Email</label>
-                                        <input type="text" placeholder='Enter email' className='w-full bg-blue-200 placeholder-white rounded-md py-3 pr-24 pl-3 mt-5'
+                                        <input type="text" placeholder='Enter email' className='w-full bg-blue-200 placeholder-violet-text rounded-md py-3 pr-24 pl-3 mt-5'
                                             onChange={(e) => {
                                                 setEmail(e.target.value)
                                             }}
@@ -55,7 +55,7 @@ const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }
                                     </div>
                                     <div>
                                         <label htmlFor="email" className='sr-only'>Password</label>
-                                        <input type="text" placeholder='Password' className='w-full border bg-blue-200 placeholder-white rounded-md py-3 pr-24 pl-3 mt-5'
+                                        <input type="text" placeholder='Password' className='w-full border bg-blue-200 placeholder-violet-text rounded-md py-3 pr-24 pl-3 mt-5'
                                             onChange={(e) => {
                                                 setPassword(e.target.value)
                                             }}
@@ -67,7 +67,7 @@ const RegistrationPage: React.FC<RegisterProps> = ({ onRegister, registerState }
                                             console.log("Logging in")
                                             onRegister(username, email, password)
                                         }}>
-                                            Login
+                                            Register
                                         </button>
                                     </div>
                                 </div>

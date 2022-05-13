@@ -39,7 +39,6 @@ function handler(driver: Driver) {
                 throw new Error('All requests must be authenticated')
             }
             const verifyResult = await verifyJWT(req.headers.authorization)
-            console.log(req.query.hobby_id)
             const hobby_id = req.query.hobby_id
             const result = await session.readTransaction(tx => {
                 return tx.run(
@@ -69,7 +68,6 @@ function handler(driver: Driver) {
             } else {
                 throw new Error("No result found")
             }
-            console.log(posts)
             reply.send({result: "SUCCESS", payload: JSON.stringify(posts)})
         } catch (e) {
             reply.send(e)

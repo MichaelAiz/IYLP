@@ -10,12 +10,14 @@ import getAllPosts from './api/getAllPosts.js';
 import getAllLikedHobbies from './api/getAllLikedHobbies.js';
 import introspect from './api/introspect.js'
 import fastifyCors from 'fastify-cors';
+import dotenv from 'dotenv'
+dotenv.config()
 
 const fastify = Fastify();
 
 fastify.register(fastifyCors, { origin: 'http://localhost:3000' });
-
-const driver = neo4j.driver('neo4j+s://61728d72.databases.neo4j.io', neo4j.auth.basic('neo4j', 'u-KggzQCAN1s2BqjL1n8XkbcsJfCA5CJc9iHaIvJoyQ'))
+console.log(process.env.NEO4J_PASS)
+const driver = neo4j.driver(process.env.CONNECTION, neo4j.auth.basic('neo4j', process.env.NEO4J_PASS))
 
 fastify.route(login(driver))
 fastify.route(register(driver))

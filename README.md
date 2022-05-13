@@ -2,7 +2,9 @@
 
 ![Demo](demo.gif)
 
-![ScanResult](assets/ScanResult.JPG)
+![Login](assets/login.png)
+![Home](assets/home.png)
+![Hobby Forum](assets/HobbyPage.png)
 
 ## Inspiration ❗
 

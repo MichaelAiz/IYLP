@@ -1,8 +1,6 @@
 # If You Like Pina Coladas
 
 ![Demo](assets/demo.gif)
-
-![Login](assets/login.png)
 ![Home](assets/home.png)
 ![Hobby Page](assets/HobbyPage.png)
 
